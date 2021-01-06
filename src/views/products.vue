@@ -32,6 +32,10 @@
               New Item
             </v-btn>
         </template>
+        <v-form
+        v-model="valid"
+        ref="form"
+        lazy-validation>
         <v-card>
           <v-card-title>
             <span class="headline">{{formtitle}}</span>
@@ -41,21 +45,21 @@
                 <v-row>
                   <v-col
                     cols="12"
-                    sm="6"
-                    md="4"
+                    
                   >
                     <v-text-field
                       v-model="editedItem.name"
+                      :rules="[v => !!v || 'Name is required']"
                       label="Name"
                     ></v-text-field>
                   </v-col>
                   <v-col
                     cols="12"
-                    sm="6"
-                    md="4"
+                    
                   >
                     <v-text-field
                       v-model="editedItem.category"
+                      :rules="[v => !!v || ' Category is required']"
                       label="Category"
                     ></v-text-field>
                   </v-col>
@@ -72,6 +76,7 @@
                 Cancel
               </v-btn>
               <v-btn
+                :disabled = "!valid"  
                 color="blue darken-1"
                 text
                 @click="save"
@@ -80,7 +85,7 @@
               </v-btn>
             </v-card-actions>
         </v-card>
-
+        </v-form>
       </v-dialog>
       <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
@@ -122,12 +127,13 @@ import axios from "axios";
 export default {
   data() {
     return {
-      
+      valid:true,
       search: "",
       snackbar: false,
       text: "",
       ip: "",
       dialog: false,
+      dialogDelete:false,
       headers: [
         { text: "ID", value: "id", filterable: false },
         { text: "Name", value: "name" },
@@ -169,8 +175,10 @@ export default {
     },
     close() {
       this.dialog = false;
+      this.$refs.form.resetValidation()
       this.editedItem = Object.assign({}, this.defaultItem);
       this.editedIndex = -1;
+      
     },
     closeDelete () {
         this.dialogDelete = false
@@ -241,6 +249,7 @@ export default {
           });
       }
       this.editedItem = Object.assign({}, this.defaultItem);
+      this.$refs.form.resetValidation()
       this.dialog = false;
     },
   },

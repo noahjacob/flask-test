@@ -11,24 +11,30 @@
     >
     <template v-slot:top>
       <v-toolbar flat color="white">
+          <v-form
+          ref="lcheck"
+          v-model="lcheck">
         <v-combobox
               v-model="location"
               :items="locations"
               @change="getProducts()"
               item-text="name"
+              :rules="[v => !!v || ' Please select a location']"
+            
               label="Select a Location"
               color="#5E64FF"
               return-object
               autofocus
-              style="max-width:20%"
+              style="max-width:250px"
             ></v-combobox>
+          </v-form>
       <v-spacer></v-spacer>
       <v-dialog v-model="idialog" max-width="500px">
         <template v-slot:activator="{on}">
           <v-btn
               color="green"
               dark
-              
+              :disabled="!lcheck"
               v-on="on"
               
             >
@@ -90,6 +96,7 @@
               <v-btn
                 color="blue darken-1"
                 text
+                :disabled = "!valid"
                 @click="isave"
               >
                 IMPORT
@@ -109,7 +116,7 @@
               color="red"
               dark
               class= "mx-4"
-              
+              :disabled="!lcheck"
               v-on="on"
               
             >
@@ -169,6 +176,7 @@
                 Cancel
               </v-btn>
               <v-btn
+                :disabled = "!valid"
                 color="blue darken-1"
                 text
                 @click="esave"
@@ -191,21 +199,23 @@
               
               
               v-on="on"
+              :disabled="!lcheck"
               
             >
               Transfer
             </v-btn>
         </template>
+         <v-form
+              ref="mov"
+              v-model="valid"
+              lazy-validation
+              >
         <v-card>
           <v-card-title>
             <span >Transfer</span>
           </v-card-title>
           <v-card-text>
-              <v-form
-              ref="mov"
-              v-model="valid"
-              lazy-validation
-              >
+             
             <v-container>
             
                 <v-row>
@@ -254,7 +264,7 @@
                 </v-row>
                 
             </v-container>
-             </v-form>
+             
            
           </v-card-text>
           <v-card-actions>
@@ -267,6 +277,7 @@
                 Cancel
               </v-btn>
               <v-btn
+                :disabled ="!valid"
                 color="blue darken-1"
                 text
                 @click="msave"
@@ -275,7 +286,7 @@
               </v-btn>
             </v-card-actions>
         </v-card>
-
+        </v-form>
       </v-dialog>
       
 
@@ -309,6 +320,7 @@ export default {
       edialog:false,
       mdialog:false,
       search: "",
+      lcheck:true,
       valid:true,
       snackbar: false,
       text: "",
@@ -338,7 +350,7 @@ export default {
         qi1: (value) => {
             return (
             ( parseInt(value)>0 && parseInt(value)<=this.ep_select.Qty||
-            `Max Amount :${this.ep_select.Qty} ` )
+            `Max Amount : ${this.ep_select.Qty} ` )
           );
         },
          p: ()=>{
@@ -504,6 +516,11 @@ export default {
            
 
     },
+    reset(){
+        this.$refs.imp.resetValidation()
+        this.$refs.mov.resetValidation()
+
+    },
     
     clear(){
         this.p_select=""
@@ -570,6 +587,7 @@ export default {
           
     },
   created(){
+      
       this.path = "http://localhost:5000"
       this.init();
     //   this.getProducts();

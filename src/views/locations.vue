@@ -21,6 +21,8 @@
         style="max-width:300px"
       ></v-text-field>
       <v-spacer></v-spacer>
+      
+
       <v-dialog v-model="dialog" max-width="500px">
         <template v-slot:activator="{on}">
           <v-btn
@@ -32,6 +34,9 @@
               New Location
             </v-btn>
         </template>
+        <v-form
+      ref="form"
+      v-model="valid">
         <v-card>
           <v-card-title>
             <span >{{formtitle}}</span>
@@ -41,11 +46,11 @@
                 <v-row>
                   <v-col
                     cols="12"
-                    sm="6"
-                    md="4"
+                    
                   >
                     <v-text-field
                       v-model="editedItem.name"
+                      :rules="[v => !!v || ' Name is required']"
                       label="Enter Location Name"
                     ></v-text-field>
                   </v-col>
@@ -62,6 +67,7 @@
                 Cancel
               </v-btn>
               <v-btn
+                :disabled = "!valid"
                 color="blue darken-1"
                 text
                 @click="save"
@@ -70,8 +76,9 @@
               </v-btn>
             </v-card-actions>
         </v-card>
-
+        </v-form>
       </v-dialog>
+      
       <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
             <v-card-title >Are you sure you want to delete this location?</v-card-title>
@@ -112,11 +119,11 @@ import axios from "axios";
 export default {
   data() {
     return {
-      
+      valid:true,
       search: "",
       snackbar: false,
       text: "",
-      ip: "",
+      
       dialog: false,
       headers: [
         { text: "ID", value: "id", filterable: false },
@@ -160,6 +167,7 @@ export default {
       this.dialog = false;
       this.editedItem = Object.assign({}, this.defaultItem);
       this.editedIndex = -1;
+      this.$refs.form.resetValidation()
     },
     closeDelete () {
         this.dialogDelete = false
@@ -232,6 +240,7 @@ export default {
       }
       this.editedItem = Object.assign({}, this.defaultItem);
       this.dialog = false;
+      this.$refs.form.resetValidation()
     },
   },
   computed: {

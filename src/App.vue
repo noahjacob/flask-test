@@ -11,7 +11,7 @@
         <v-toolbar color="#FF4081">
           <router-link :to="{ path: '/' }"
             ><v-toolbar-title class="white--text ml-16"
-              >Inventory Tracking System</v-toolbar-title
+              >Inventory Management System</v-toolbar-title
             ></router-link
           >
 
