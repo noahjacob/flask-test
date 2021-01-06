@@ -1,16 +1,32 @@
 <template>
   <div >
-  <v-card class = "mx-16 my-7">
+  <v-card class = "mx-16 mt-7">
     <v-card-title>
       Report
     </v-card-title>
+    <v-container>
+        <v-text-field
+        v-model="search"
+        append-icon="mdi-magnify"
+        label="Search"
+        single-line
+        hide-details
+        class="mb-2 ml-1"
+        style="max-width:250px"
+      ></v-text-field>
+        </v-container>
     <v-data-table
       :headers="headers"
       :items="prod_loc"
       :search="search"
     >
     <template v-slot:top>
+        
+
+        
       <v-toolbar flat color="white">
+          <v-container>
+          <v-row>
           <v-form
           ref="lcheck"
           v-model="lcheck">
@@ -288,10 +304,12 @@
         </v-card>
         </v-form>
       </v-dialog>
-      
+          </v-row>
 
+        </v-container>
       </v-toolbar>
 
+        
     </template>
 
 
