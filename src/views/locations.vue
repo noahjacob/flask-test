@@ -7,6 +7,7 @@
     <v-data-table
       :headers="headers"
       :items="locations"
+     
       :search="search"
     >
     <template v-slot:top>
@@ -18,7 +19,7 @@
         single-line
         hide-details
         class=" my-5"
-        style="max-width:300px"
+        style="max-width:250px"
       ></v-text-field>
       <v-spacer></v-spacer>
       
@@ -182,6 +183,14 @@ export default {
         this.editedItem = Object.assign({}, item)
         this.dialog = true
       },
+    rowclass (item){
+        console.log("Item class",item)
+        if (item.name == "Delhi") {
+          return "orange";
+        } 
+        
+
+      },
       deleteItem (item) {
         this.editedIndex = this.locations.indexOf(item)
         this.editedItem = Object.assign({}, item)
@@ -257,3 +266,8 @@ export default {
   };
 
 </script>
+<style scoped>
+.green td{
+  background-color: orange;
+}
+</style>

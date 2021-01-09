@@ -18,7 +18,7 @@
         single-line
         hide-details
         class=" my-5"
-        style="max-width:300px"
+        style="max-width:250px"
       ></v-text-field>
       <v-spacer></v-spacer>
       <v-dialog v-model="dialog" max-width="500px">

@@ -1,20 +1,25 @@
 <template>
   <div >
-  <v-card class = "mx-16 mt-7">
+  <v-card class = "mx-16 my-7">
     <v-card-title>
-      Report
-    </v-card-title>
-    <v-container>
+      
+      <v-container>
+          <v-row class="mb-4">
+              Report
+          </v-row>
+          <v-row class="mb-1" >
         <v-text-field
         v-model="search"
         append-icon="mdi-magnify"
         label="Search"
         single-line
         hide-details
-        class="mb-2 ml-1"
+        
         style="max-width:250px"
       ></v-text-field>
+          </v-row>
         </v-container>
+    </v-card-title>
     <v-data-table
       :headers="headers"
       :items="prod_loc"
