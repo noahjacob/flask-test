@@ -98,26 +98,26 @@ npm run lint
 ### Products
 <br/>
 
-![Products](\screenshots\products.png)
+![Products](/screenshots/products.png)
 <br/>
 
-![prod_dialog](\screenshots\prods.png)
+![prod_dialog](/screenshots/prods.png)
 
 ### Locations
-![locations](\screenshots\locations.png)
+![locations](/screenshots/locations.png)
 
 <br/>
 
 ### Importing Products
-![idia](\screenshots\import.png)
+![idia](/screenshots/import.png)
 <br/>
 
 ### Exporting Products
-![edia](\screenshots\export.png)
+![edia](/screenshots/export.png)
 <br/>
 
-### Transfering Products
-![mdia](\screenshots\transfer.png)
+### Transferring Products
+![mdia](/screenshots/transfer.png)
 
 [Back To The Top](#table-of-contents)
 
