@@ -10,6 +10,7 @@
           <v-row class="mb-1" >
         <v-text-field
         v-model="search"
+        @change="check"
         append-icon="mdi-magnify"
         label="Search"
         single-line
@@ -596,15 +597,7 @@ export default {
 
     },
     check(){
-        if(this.location ===  ""){
-            this.text = "Please select a location"
-            this.snackbar = true
-            this.clear()
-            this.$refs.form.resetValidation()
-           
-            this.idialog =false
-            return;
-            }
+       console.log(this.search)
 
     }
           
