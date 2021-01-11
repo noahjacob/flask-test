@@ -35,60 +35,64 @@ These instructions will help you get a copy of this project up and running on yo
 ### Prerequisites
 All the things you need before installation.
 
-* Install [Node.js](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) 
+Install [Node.js](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) 
 
-* Install VueJs
+Install VueJs
 ```
 npm install -g @vue/cli
 ```
-* Install Python and Flask
-```
-pip3 install Flask
-```
 
 ### Installation
-Step-by-step instruction to help you get your development enviroment running on localhost.
+Step-by-step instruction to help you get the app running in developement or production.<br/>
 
-1. Clone the repo
+Clone the repo
 ```
 git clone https://github.com/noahjacob/flask-test.git
 ```
-2. Install Flask Dependencies
+Install the dependencies - Flask
 ```
-pip3 install flask-cors
-```
-3. Enter your MySQL database credentials in `server.py` to connect to the database `or` Use the sql dumps of the database.
-```py
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    passwd=pw,
-    database="frappe",
-)
+pip3 install -r requirements.txt
 ```
 
-4. Getting the Flask server running
+Getting the Flask server running
 ```bat
 cd flask-test
-python3 server.py
+python3 app.py
 ```
-5. Installing Vue dependencies
+The production build is now running through the flask server on [http://localhost:5000/](http://localhost:5000/)
+
+<br/>
+
+To get your development enviroment running:
+
+Install Vue dependencies
+
 ```bat
 cd flask-test
 npm install
 ```
-6. Compiles and hot-reloads for development
+Compiles and hot-reloads for development
+
 ```
 npm run serve
 ```
-7. Compiles and minifies for production
+Compiles and minifies for production
+
 ```
 npm run build
 ```
-8. Lints and fixes files
+Lints and fixes files
+
 ```
 npm run lint
 ```
+
+<br/>
+
+The Webapp is now accessible and running in developement mode on [http://localhost:8080/](http://localhost:8080/)
+
+<br/>
+
 [Back To The Top](#table-of-contents)
 
 ## Authors
