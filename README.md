@@ -108,6 +108,14 @@ npm run lint
 
 <br/>
 
+![edit_loc](/screenshots/edit_loc.png)
+
+<br/>
+
+![delete](/screenshots/del.png)
+
+<br/>
+
 ### Importing Products
 ![idia](/screenshots/import.png)
 <br/>
