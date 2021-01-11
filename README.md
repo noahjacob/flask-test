@@ -1,6 +1,6 @@
 # Inventory Management System
 
----
+
 
 ## Table of Contents
 * [About](#about)
@@ -8,10 +8,11 @@
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
-* [Screenshots](#screenshots)
 * [Authors](#authors)
+* [Screenshots](#screenshots)
 
----
+
+
 
 ## About
 * A basic inventory management system that displays products and store locations and can perform operations like add, update. 
@@ -25,9 +26,9 @@
 - [VueJs](https://vuejs.org/v2/guide/) - Web Framework
 - [Vuetify](https://vuetifyjs.com/en/getting-started/installation/) - Material UI 
 
-[Back To The Top](#table-of-contents)
 
----
+
+
 ## Getting Started
 These instructions will help you get a copy of this project up and running on your local machine for development purposes.
 
@@ -56,7 +57,7 @@ git clone https://github.com/noahjacob/flask-test.git
 ```
 pip3 install flask-cors
 ```
-3. Enter your MySQL database credentials in `server.py` to connect to the database.
+3. Enter your MySQL database credentials in `server.py` to connect to the database `or` Use the sql dumps of the database.
 ```py
 db = mysql.connector.connect(
     host="localhost",
@@ -90,9 +91,33 @@ npm run lint
 ```
 [Back To The Top](#table-of-contents)
 
----
+## Authors
+- [Noah Jacob](https://github.com/noahjacob)
 
 ## Screenshots
+### Products
+<br/>
+
+![Products](\screenshots\products.png)
+<br/>
+
+![prod_dialog](\screenshots\prods.png)
+
+### Locations
+![locations](\screenshots\locations.png)
+
+<br/>
+
+### Importing Products
+![idia](\screenshots\import.png)
+<br/>
+
+### Exporting Products
+![edia](\screenshots\export.png)
+<br/>
+
+### Transfering Products
+![mdia](\screenshots\transfer.png)
 
 [Back To The Top](#table-of-contents)
 
