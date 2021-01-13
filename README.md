@@ -1,6 +1,6 @@
 # Inventory Management System
-
-
+You can try this app out at [https://frappe-flask-test.herokuapp.com/products](
+https://frappe-flask-test.herokuapp.com/products)
 
 ## Table of Contents
 * [About](#about)
