@@ -251,7 +251,7 @@ export default {
       p_select: "",
       loc_select: "",
       ep_select: "",
-      quant: 0,
+      quant: "",
       path: "",
       ip: "",
       locations: [],
@@ -325,15 +325,7 @@ export default {
         this.$refs.imp.resetValidation();
         return;
       }
-      if (!this.$refs.imp.validate()) {
-        this.text = "Some fields were invalid";
-        this.snackbar = true;
-        this.clear();
-        this.idialog = false;
-
-        this.$refs.imp.resetValidation();
-        return;
-      }
+      
       const type = "import";
       const to_loc = this.location.id;
       const pid = this.p_select.id;
@@ -345,7 +337,7 @@ export default {
           this.prod_loc = res.data;
           this.text = "Successfully Imported";
           this.snackbar = true;
-
+          this.$refs.imp.resetValidation();
           this.clear();
         })
         .catch((err) => {
@@ -382,6 +374,7 @@ export default {
           this.prod_loc = res.data;
           this.text = "Successfully Exported";
           this.snackbar = true;
+          this.$refs.exp.resetValidation();
           this.clear();
         })
         .catch((err) => {
@@ -420,7 +413,7 @@ export default {
           this.prod_loc = res.data;
           this.text = "Successfully Transfered";
           this.snackbar = true;
-
+          this.$refs.mov.resetValidation();
           this.clear();
         })
         .catch((err) => {
@@ -434,6 +427,7 @@ export default {
     reset() {
       this.$refs.imp.resetValidation();
       this.$refs.mov.resetValidation();
+      
     },
 
     clear() {

@@ -102,13 +102,15 @@ def getprodloc(location=-1):
         req = request.get_json()
         location = req["location"]
 
-    cursor.execute("select test.pname ,test.pid, test.im,test.exp,sum(test.im -ifnull(test.exp,0) )as bal from (SELECT p.pname as pname, pmo.pid as pid, (SELECT SUM(pmi.quant) FROM prod_mov AS pmi WHERE pmo.to_loc=pmi.to_loc AND pmi.pid = pmo.pid) AS im , (SELECT SUM(pmi.quant) FROM prod_mov AS pmi WHERE pmo.to_loc=pmi.from_loc AND pmi.pid = pmo.pid) AS exp FROM prod_mov AS pmo, products AS p WHERE pmo.pid = p.pid AND pmo.to_loc=? GROUP BY pmo.to_loc, pmo.pid) as test group by pid ", (location,))
+    cursor.execute("select test.pname ,test.pid, test.im,test.exp,sum(test.im -ifnull(test.exp,0) )as bal from (SELECT p.pname as pname, pmo.pid as pid, (SELECT SUM(pmi.quant) FROM prod_mov AS pmi WHERE pmo.to_loc=pmi.to_loc AND pmi.pid = pmo.pid) AS im , (SELECT SUM(pmi.quant) FROM prod_mov AS pmi WHERE pmo.to_loc=pmi.from_loc AND pmi.pid = pmo.pid) AS exp FROM prod_mov AS pmo, products AS p WHERE pmo.pid = p.pid AND pmo.to_loc=? GROUP BY pmo.to_loc, pmo.pid) as test group by pid  ", (location,))
     res = cursor.fetchall()
     db.commit()
     response = []
     for pm in res:
-        response.append({"id": pm[1], "name": pm[0],
-                         "Qty": str(pm[4]), "loc": location})
+        print(pm[4]>0)
+        if pm[4] > 0:
+            response.append({"id": pm[1], "name": pm[0],
+                            "Qty": str(pm[4]), "loc": location})
     if req_type == -1:
         return jsonify(response)
     else:
@@ -121,8 +123,8 @@ def getprodloc(location=-1):
 def moves():
     req = request.get_json()
     values = (req["pid"], req["quant"])
-    names = "pid,quant"
-    inputs = "?,?"
+    names = "timestamp,pid,quant"
+    inputs = "current_timestamp,?,?"
     cur_loc = req["cur_loc"]
 
     if req["type"] == "import":
