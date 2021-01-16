@@ -2,6 +2,9 @@
 You can try this app out at [https://frappe-flask-test.herokuapp.com/products](
 https://frappe-flask-test.herokuapp.com/products)
 
+![Heroku](https://pyheroku-badge.herokuapp.com/?app=frappe-flask-test&style=flat)
+
+
 ## Table of Contents
 * [About](#about)
   * [Built With](#built-with)
