@@ -64,10 +64,10 @@
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn color="blue darken-1" text @click="closeDelete"
-                    >NO</v-btn
+                    >no</v-btn
                   >
                   <v-btn color="blue darken-1" text @click="deleteItemConfirm"
-                    >YES</v-btn
+                    >yes</v-btn
                   >
                   <v-spacer></v-spacer>
                 </v-card-actions>
@@ -125,7 +125,7 @@ export default {
 
   methods: {
     getLocations() {
-      const path = `${ip}/getLocations`;
+      const path = `/getLocations`;
       axios
         .get(path)
         .then((res) => {
@@ -155,12 +155,8 @@ export default {
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
-    rowclass(item) {
-      console.log("Item class", item);
-      if (item.name == "Delhi") {
-        return "orange";
-      }
-    },
+    
+    
     deleteItem(item) {
       this.editedIndex = this.locations.indexOf(item);
       this.editedItem = Object.assign({}, item);
@@ -170,7 +166,7 @@ export default {
       this.locations.splice(this.editedIndex, 1);
       const location = this.editedItem;
       axios
-        .post(`${ip}/delLocation`, location)
+        .post(`/delLocation`, location)
         .then((res) => {
           this.locations = res.data;
           this.text = "Successfully deleted location";
@@ -189,7 +185,7 @@ export default {
         const location = this.editedItem;
 
         axios
-          .post(`${ip}/editLocation`, location)
+          .post(`/editLocation`, location)
           .then((res) => {
             this.locations = res.data;
             this.text = "Successfully edited location";
@@ -205,7 +201,7 @@ export default {
         console.log(location);
 
         axios
-          .post(`${ip}/addLocation`, location)
+          .post(`/addLocation`, location)
           .then((res) => {
             this.locations = res.data;
             this.text = "Successfully added location";
@@ -233,8 +229,3 @@ export default {
   },
 };
 </script>
-<style scoped>
-.green td {
-  background-color: orange;
-}
-</style>

@@ -72,7 +72,7 @@
                     >Cancel</v-btn
                   >
                   <v-btn color="blue darken-1" text @click="deleteItemConfirm"
-                    >OK</v-btn
+                    >ok</v-btn
                   >
                   <v-spacer></v-spacer>
                 </v-card-actions>
@@ -134,7 +134,7 @@ export default {
 
   methods: {
     getProducts() {
-      const path = `${ip}/getProducts`;
+      const path = `/getProducts`;
       axios
         .get(path)
         .then((res) => {
@@ -173,7 +173,7 @@ export default {
       this.products.splice(this.editedIndex, 1);
       const product = this.editedItem;
       axios
-        .post(`${ip}/delProduct`, product)
+        .post(`/delProduct`, product)
         .then((res) => {
           this.products = res.data;
           this.text = "Successfully deleted product";
@@ -192,7 +192,7 @@ export default {
         const product = this.editedItem;
 
         axios
-          .post(`${ip}/editProduct`, product)
+          .post(`/editProduct`, product)
           .then((res) => {
             this.products = res.data;
             this.text = "Successfully edited product";
@@ -207,7 +207,7 @@ export default {
         const product = this.editedItem;
 
         axios
-          .post(`${ip}/addProduct`, product)
+          .post(`/addProduct`, product)
           .then((res) => {
             this.products = res.data;
             this.text = "Successfully added product";

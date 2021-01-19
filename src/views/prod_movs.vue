@@ -57,7 +57,9 @@
                               ref="test"
                               item-text="name"
                               label="Select a Product"
-                              :rules="[rules.p]"
+                              :rules="[
+                                (v) => !!v || ' Please select a product',
+                              ]"
                               color="#5E64FF"
                               return-object
                               autofocus
@@ -77,16 +79,16 @@
                     </v-card-text>
                     <v-card-actions>
                       <v-spacer></v-spacer>
-                      <v-btn color="blue darken-1" text @click="iclose">
+                      <v-btn color="blue darken-1" text @click="close">
                         Cancel
                       </v-btn>
                       <v-btn
                         color="blue darken-1"
                         text
                         :disabled="!valid"
-                        @click="isave"
+                        @click="save('imp')"
                       >
-                        IMPORT
+                        import
                       </v-btn>
                     </v-card-actions>
                   </v-card>
@@ -101,7 +103,7 @@
                       :disabled="!lcheck"
                       v-on="on"
                     >
-                      Export
+                      export
                     </v-btn>
                   </template>
                   <v-card>
@@ -117,7 +119,9 @@
                               :items="prod_loc"
                               item-text="name"
                               label="Select a Product"
-                              :rules="[rules.ep]"
+                              :rules="[
+                                (v) => !!v || ' Please select a product',
+                              ]"
                               color="#5E64FF"
                               return-object
                               autofocus
@@ -137,16 +141,16 @@
                     </v-card-text>
                     <v-card-actions>
                       <v-spacer></v-spacer>
-                      <v-btn color="blue darken-1" text @click="eclose">
+                      <v-btn color="blue darken-1" text @click="close">
                         Cancel
                       </v-btn>
                       <v-btn
                         :disabled="!valid"
                         color="blue darken-1"
                         text
-                        @click="esave"
+                        @click="save('export')"
                       >
-                        EXPORT
+                        export
                       </v-btn>
                     </v-card-actions>
                   </v-card>
@@ -171,7 +175,9 @@
                               :items="prod_loc"
                               item-text="name"
                               label="Select a Product"
-                              :rules="[rules.ep]"
+                              :rules="[
+                                (v) => !!v || ' Please select a product',
+                              ]"
                               color="#5E64FF"
                               return-object
                               autofocus
@@ -184,7 +190,9 @@
                               class="my-3"
                               item-text="name"
                               label="Select a location"
-                              :rules="[rules.l_check]"
+                              :rules="[
+                                (v) => !!v || ' Please select a location',
+                              ]"
                               color="#5E64FF"
                               required
                               return-object
@@ -203,16 +211,16 @@
                       </v-card-text>
                       <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="blue darken-1" text @click="mclose">
+                        <v-btn color="blue darken-1" text @click="close">
                           Cancel
                         </v-btn>
                         <v-btn
                           :disabled="!valid"
                           color="blue darken-1"
                           text
-                          @click="msave"
+                          @click="save('move')"
                         >
-                          MOVE
+                          move
                         </v-btn>
                       </v-card-actions>
                     </v-card>
@@ -272,29 +280,12 @@ export default {
             `Max Amount : ${this.ep_select.Qty} `
           );
         },
-        p: () => {
-          if (this.p_select === "") {
-            return "Please eneter a product";
-          }
-        },
-        ep: () => {
-          if (this.ep_select === "") {
-            return "Please enter a product";
-          }
-        },
-        l_check: () => {
-          if (this.loc_select === "") {
-            return "Please enter a location";
-          }
-        },
       },
     };
   },
 
   methods: {
     getProducts() {
-      //   const path = '${ip}//movements/getProducts';
-      console;
       const location = this.location.id;
 
       this.loc_ops = this.locations.slice();
@@ -305,163 +296,131 @@ export default {
       }
 
       axios
-        .post(`${ip}//movements/getProducts`, { location })
+        .get(`/movements/getProducts`, { params: { location: location } })
         .then((res) => {
-          // console.log(res.data)
           this.prod_loc = res.data;
-          console.log(this.location);
+          console.log(res.data);
         })
         .catch((err) => {
           console.error(err);
         });
     },
-    isave() {
-      if (this.location === "") {
-        this.text = "Please select a location";
-        this.snackbar = true;
-        this.clear();
+    save(type) {
+      console.log(type);
+      if (type == "imp") {
+        const type = "import";
+        const to_loc = this.location.id;
+        const pid = this.p_select.id;
+        const quant = this.quant;
+        const cur_loc = this.location.id;
+        axios
+          .post(`/movements/import`, { type, to_loc, pid, quant, cur_loc })
+          .then((res) => {
+            this.prod_loc = res.data;
+            this.text = "Successfully Imported";
+            this.snackbar = true;
+            this.idialog = false;
+            this.$refs.imp.resetValidation();
+            this.clear();
+          })
+          .catch((err) => {
+            console.log(err);
+            this.text = "Unsucessfully Imported";
+            this.snackbar = true;
+            this.$refs.imp.resetValidation();
+            this.clear();
+          });
         this.idialog = false;
-
         this.$refs.imp.resetValidation();
-        return;
-      }
-      
-      const type = "import";
-      const to_loc = this.location.id;
-      const pid = this.p_select.id;
-      const quant = this.quant;
-      const cur_loc = this.location.id;
-      axios
-        .post(`${ip}/movements/import`, { type, to_loc, pid, quant, cur_loc })
-        .then((res) => {
-          this.prod_loc = res.data;
-          this.text = "Successfully Imported";
-          this.snackbar = true;
-          this.$refs.imp.resetValidation();
-          this.clear();
-        })
-        .catch((err) => {
-          console.log(err);
-          this.text = "Unsucessfully Imported";
-          this.snackbar = true;
-        });
-      this.idialog = false;
-      this.$refs.imp.resetValidation();
-    },
-    esave() {
-      if (this.location === "") {
-        this.text = "Please select a location";
-        this.snackbar = true;
-        this.clear();
+      } else if (type == "export") {
+        const type = "export";
+        const from_loc = this.location.id;
+        const pid = this.ep_select.id;
+        const quant = this.quant;
+        const cur_loc = this.location.id;
+        axios
+          .post(`/movements/export`, {
+            type,
+            from_loc,
+            pid,
+            quant,
+            cur_loc,
+          })
+          .then((res) => {
+            this.prod_loc = res.data;
+            this.text = "Successfully Exported";
+            this.snackbar = true;
+            this.$refs.exp.resetValidation();
+            this.clear();
+          })
+          .catch((err) => {
+            console.log(err);
+            this.text = "Unsucessfully Imported";
+            this.snackbar = true;
+            this.$refs.exp.resetValidation();
+            this.clear();
+          });
         this.edialog = false;
         this.$refs.exp.resetValidation();
-        return;
-      }
-      const type = "export";
-      const from_loc = this.location.id;
-      const pid = this.ep_select.id;
-      const quant = this.quant;
-      const cur_loc = this.location.id;
-      axios
-        .post(`${ip}/movements/export`, {
-          type,
-          from_loc,
-          pid,
-          quant,
-          cur_loc,
-        })
-        .then((res) => {
-          this.prod_loc = res.data;
-          this.text = "Successfully Exported";
-          this.snackbar = true;
-          this.$refs.exp.resetValidation();
-          this.clear();
-        })
-        .catch((err) => {
-          console.log(err);
-          this.text = "Unsucessfully Imported";
-          this.snackbar = true;
-        });
-      this.edialog = false;
-      this.$refs.exp.resetValidation();
-    },
-    msave() {
-      if (this.location === "") {
-        this.text = "Please select a location";
-        this.snackbar = true;
-        this.clear();
-        this.edialog = false;
+      } else {
+        const type = "move";
+        const from_loc = this.location.id;
+        const pid = this.ep_select.id;
+        const quant = this.quant;
+        const to_loc = this.loc_select.id;
+        const cur_loc = this.location.id;
+        axios
+          .post(`/movements/move`, {
+            type,
+            from_loc,
+            to_loc,
+            pid,
+            quant,
+            cur_loc,
+          })
+          .then((res) => {
+            this.prod_loc = res.data;
+            this.text = "Successfully Transfered";
+            this.snackbar = true;
+            this.$refs.mov.resetValidation();
+            this.clear();
+          })
+          .catch((err) => {
+            console.log(err);
+            this.text = "Unsucessfully Transfered";
+            this.snackbar = true;
+          });
+        this.mdialog = false;
         this.$refs.mov.resetValidation();
-        return;
       }
-      const type = "move";
-      const from_loc = this.location.id;
-      const pid = this.ep_select.id;
-      const quant = this.quant;
-      const to_loc = this.loc_select.id;
-      const cur_loc = this.location.id;
-      axios
-        .post(`${ip}/movements/move`, {
-          type,
-          from_loc,
-          to_loc,
-          pid,
-          quant,
-          cur_loc,
-        })
-        .then((res) => {
-          this.prod_loc = res.data;
-          this.text = "Successfully Transfered";
-          this.snackbar = true;
-          this.$refs.mov.resetValidation();
-          this.clear();
-        })
-        .catch((err) => {
-          console.log(err);
-          this.text = "Unsucessfully Transfered";
-          this.snackbar = true;
-        });
-      this.mdialog = false;
-      this.$refs.mov.resetValidation();
-    },
-    reset() {
-      this.$refs.imp.resetValidation();
-      this.$refs.mov.resetValidation();
-      
     },
 
     clear() {
       this.p_select = "";
       this.ep_select = "";
       this.quant = 0;
+      this.loc_select = "";
     },
-    iclose() {
+    close() {
       this.text = "";
       this.p_select = "";
-      this.idialog = false;
-      this.$refs.imp.resetValidation();
-    },
-    mclose() {
-      this.text = "";
       this.ep_select = "";
       this.loc_select = "";
-      this.mdialog = false;
-      this.$refs.mov.resetValidation();
-    },
-    eclose() {
-      this.text = "";
-      this.ep_select = "";
-      this.$refs.exp.resetValidation();
+      this.idialog = false;
       this.edialog = false;
+      this.mdialog = false;
+      this.$refs.imp.resetValidation();
+      this.$refs.mov.resetValidation();
+      this.$refs.exp.resetValidation();
     },
 
     init() {
       axios
-        .get(`${ip}/getLocations`)
+        .get(`/getLocations`)
         .then((res) => {
           this.locations = res.data;
           axios
-            .get(`${ip}/getProducts`)
+            .get(`/getProducts`)
             .then((res) => {
               this.products = res.data;
             })
@@ -478,13 +437,9 @@ export default {
     },
   },
   created() {
-    this.path = `${ip}`;
+    
     this.ip = ip;
     this.init();
-    //   this.getProducts();
-    //   console.log(this.locations)
-
-    console.log(this.p_select);
   },
 };
 </script>

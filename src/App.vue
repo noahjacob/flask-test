@@ -9,7 +9,7 @@
     <v-app >
       <div>
         <v-toolbar color="#FF4081">
-          <router-link :to="{ path: '/' }"
+          <router-link :to="{ path: '/home' }"
             ><v-toolbar-title class="white--text ml-16"
               >Inventory Management System</v-toolbar-title
             ></router-link

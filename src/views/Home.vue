@@ -1,15 +1,37 @@
 <template lang="html">
 <v-container fill-height fluid>
   <v-row align="center" justify="center" id="home">
-    <h1>Home Page</h1>
-    <v-col></v-col>
+    <h2>Component Buttons</h2>
+    
   </v-row>
+  <v-row align="center" justify="center" >
+    
+    <btn title="Default">
+
+      </btn>
+      
+      
+    <btn title="primary" variant = "primary"   >
+
+      </btn>
+      
+      
+    <btn title="error" variant = "error"  >
+
+      </btn>
+      
+    </v-row>
+
+  
   </v-container>
 </template>
 
 <script>
-export default {};
+import button from "../components/button.vue";
+export default {
+  components: {
+    btn: button,
+  },
+};
 </script>
 
-<style lang="css" scoped>
-</style>
