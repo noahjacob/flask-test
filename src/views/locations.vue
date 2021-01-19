@@ -17,8 +17,8 @@
             <v-spacer></v-spacer>
 
             <v-dialog v-model="dialog" max-width="500px">
-              <template v-slot:activator="{ on }">
-                <v-btn color="primary" dark v-on="on"> New Location </v-btn>
+              <template v-slot:activator="{ on:{ click } }">
+                <btn variant="primary" dark v-on:click.native="click" title="new location">  </btn>
               </template>
               <v-form ref="form" v-model="valid">
                 <v-card>
@@ -92,7 +92,12 @@
 
 <script>
 import axios from "axios";
+import button from "../components/button.vue";
 export default {
+  components:{
+    btn:button,
+
+  },
   data() {
     return {
       valid: true,

@@ -1,67 +1,61 @@
 
 <template>
-  <button :style="btnstyle " onclick="click" >{{ title }}</button>
+  <button :style="btnstyle" >{{ title }}</button>
 </template>>
 <script>
 export default {
   props: {
-    title:{
-        type:String,
-        default:"Test"
+    title: {
+      type: String,
+      default: "Test",
     },
     variant: String,
-    click: {type:Function}
+    click: { type: Function },
+    disabled:{type:Boolean,default:false}
   },
-  computed:{
-      btnstyle(){
-          
-          if(this.variant == "primary"){
-              return{
-                  "background-color": "#1565C0"
-              }
-          }
-          else if(this.variant == "error"){
-              return{
-                  "background-color":"#E53935"
-              }
-              
-
-          }
-          else if(this.variant == "disabled"){
-              return{
-                  "cursor": "not-allowed",
-                 "pointer-events": "none",
-                 "color": "#c0c0c0",
-                    "background-color": "#ffffff"
-              }
-              
-
-          }
-          
-          else{
-              return{
-                  "background-color":"#E0E0E0",
-                  "color":"black"
-              }
-
-
-              
-          }
-              
-          }
-      },
-      mounted(){
-          this.click();
+  computed: {
+    btnstyle() {
+        if (this.variant == "disabled"||this.disabled == true) {
+        return {
+          cursor: "not-allowed",
+          "pointer-events": "none",
+          color: "#c0c0c0",
+          "background-color": "#ffffff",
+        };
+      }else if (this.variant == "primary") {
+        return {
+          "background-color": "#1565C0",
+        };
+      } else if (this.variant == "error") {
+        return {
+          "background-color": "#E53935",
+        };
       }
-  }
-
+       else if (this.variant == "warning") {
+        return {
+          "background-color": "#FB8C00",
+        };
+      } else if (this.variant == "success") {
+        return {
+          "background-color": "#2ecc71",
+        };
+      } else {
+        return {
+          "background-color": "#E0E0E0",
+          color: "black",
+        };
+      }
+    },
+  },
+  
+};
 </script>
 <style scoped>
 button {
   position: relative;
   color: "black";
   text-transform: uppercase;
-  cursor:"";
+  cursor: "";
   pointer-events: all;
   font-family: Roboto;
   font-weight: 500;
@@ -113,7 +107,5 @@ button:active:before {
 
   transition: width 0.2s ease-out, padding-top 0.2s ease-out;
 }
-/* *, *:before, *:after {
-  box-sizing: border-box;
-} */
+
 </style>

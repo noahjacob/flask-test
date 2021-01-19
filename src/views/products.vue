@@ -16,8 +16,8 @@
             ></v-text-field>
             <v-spacer></v-spacer>
             <v-dialog v-model="dialog" max-width="500px">
-              <template v-slot:activator="{ on }">
-                <v-btn color="primary" dark v-on="on"> New Item </v-btn>
+              <template v-slot:activator="{ on:{ click } }">
+                <btn title="new item" variant="primary" v-on:click.native="click"></btn>
               </template>
               <v-form v-model="valid" ref="form" lazy-validation>
                 <v-card>
@@ -97,7 +97,12 @@
 
 <script>
 import axios from "axios";
+import button from "../components/button.vue";
 export default {
+  components:{
+    btn: button,
+
+  },
   data() {
     return {
       valid: true,

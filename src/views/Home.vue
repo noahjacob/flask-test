@@ -14,9 +14,15 @@
     <btn title="primary" variant = "primary"   >
 
       </btn>
+      <btn title="success" variant = "success"  >
+
+      </btn>
       
       
     <btn title="error" variant = "error"  >
+
+      </btn>
+      <btn title="warning" variant = "warning"  >
 
       </btn>
 
@@ -36,7 +42,6 @@ export default {
   components: {
     btn: button,
   },
-  
 };
 </script>
 

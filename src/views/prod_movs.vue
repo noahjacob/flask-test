@@ -7,7 +7,6 @@
           <v-row class="mb-1">
             <v-text-field
               v-model="search"
-              @change="check"
               append-icon="mdi-magnify"
               label="Search"
               single-line
@@ -38,10 +37,9 @@
                 </v-form>
                 <v-spacer></v-spacer>
                 <v-dialog v-model="idialog" max-width="500px">
-                  <template v-slot:activator="{ on }">
-                    <v-btn color="green" dark :disabled="!lcheck" v-on="on">
-                      Import
-                    </v-btn>
+                  <template v-slot:activator="{ on:{click} }">
+                    <btn variant="success" :disabled="!lcheck" v-on:click.native="click" title="import">
+                    </btn>
                   </template>
                   <v-card>
                     <v-card-title>
@@ -95,16 +93,9 @@
                 </v-dialog>
 
                 <v-dialog v-model="edialog" max-width="500px">
-                  <template v-slot:activator="{ on }">
-                    <v-btn
-                      color="red"
-                      dark
-                      class="mx-4"
-                      :disabled="!lcheck"
-                      v-on="on"
-                    >
-                      export
-                    </v-btn>
+                  <template v-slot:activator="{ on:{click} }">
+                    <btn variant="error" :disabled="!lcheck" v-on:click.native="click" title="export">
+                    </btn>
                   </template>
                   <v-card>
                     <v-card-title>
@@ -157,10 +148,9 @@
                 </v-dialog>
 
                 <v-dialog v-model="mdialog" max-width="500px">
-                  <template v-slot:activator="{ on }">
-                    <v-btn color="#ffc400" dark v-on="on" :disabled="!lcheck">
-                      Transfer
-                    </v-btn>
+                  <template v-slot:activator="{ on:{click} }">
+                    <btn variant="warning" :disabled="!lcheck" v-on:click.native="click" title="transfer">
+                    </btn>
                   </template>
                   <v-form ref="mov" v-model="valid" lazy-validation>
                     <v-card>
@@ -242,7 +232,11 @@
 
 <script>
 import axios from "axios";
+import button from "../components/button";
 export default {
+  components:{
+    btn:button,
+  },
   data() {
     return {
       idialog: false,
@@ -430,9 +424,6 @@ export default {
         .catch((err) => {
           console.error(err);
         });
-    },
-    check() {
-      console.log(this.search);
     },
   },
   created() {
