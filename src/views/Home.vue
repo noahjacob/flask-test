@@ -1,5 +1,5 @@
 <template lang="html">
-<v-container fill-height fluid>
+<v-container>
   <v-row align="center" justify="center" id="home">
     <h2>Component Buttons</h2>
     

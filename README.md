@@ -46,7 +46,7 @@ npm install -g @vue/cli
 ```
 
 ### Installation
-Step-by-step instruction to help you get the app running in developement or production.<br/>
+Step-by-step instruction to help you get the app running in development or production.<br/>
 
 Clone the repo
 ```
@@ -92,7 +92,7 @@ npm run lint
 
 <br/>
 
-The Webapp is now accessible and running in developement mode on [http://localhost:8080/](http://localhost:8080/)
+The Webapp is now accessible and running in development mode on [http://localhost:8080/](http://localhost:8080/)
 
 <br/>
 
