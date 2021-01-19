@@ -92,7 +92,6 @@
 
 <script>
 import axios from "axios";
-import { ip } from "../config";
 export default {
   data() {
     return {
@@ -224,7 +223,6 @@ export default {
     },
   },
   created() {
-    this.ip = ip;
     this.getLocations();
   },
 };

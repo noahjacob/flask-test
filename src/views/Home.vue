@@ -6,7 +6,7 @@
   </v-row>
   <v-row align="center" justify="center" >
     
-    <btn title="Default">
+    <btn title="Default" >
 
       </btn>
       
@@ -17,6 +17,10 @@
       
       
     <btn title="error" variant = "error"  >
+
+      </btn>
+
+      <btn title="disabled" variant = "disabled"  >
 
       </btn>
       
@@ -32,6 +36,7 @@ export default {
   components: {
     btn: button,
   },
+  
 };
 </script>
 
