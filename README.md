@@ -19,7 +19,7 @@ https://frappe-flask-test.herokuapp.com/products)
 
 ## About
 * A basic inventory management system that displays products and store locations and can perform operations like add, update. 
-* It keeps a track of prodcuts at different locations based on the prodcut movement logs and displays the current amount.
+* It keeps a track of products at different locations based on the product movement logs and displays the current amount.
 * It also lets the user do operations like Import, Export and Transfer products from different locations.
 
 ### Built With
